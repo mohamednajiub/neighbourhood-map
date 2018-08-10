@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Header.css'
+import '../../App.css'
 
 class Header extends Component {
 
@@ -12,8 +12,8 @@ class Header extends Component {
 
         return (
             <header>
-                <span className="toggle-menu fas fa-bars" onClick={this.toggleMenu}></span>
                 <h1 className="page-title">Neighborhood Map</h1>
+                <span className="menuIcon" onClick={this.toggleMenu}>&#9776;</span>
             </header>
         )
     }

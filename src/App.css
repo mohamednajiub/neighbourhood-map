@@ -1,0 +1,47 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box
+}
+
+.container {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 70px 25%;
+    grid-template-areas: "list header" "list map";
+}
+
+Header {
+    display: grid;
+    grid-area: header;
+    color: #fff;
+    background-color: #212121;
+    line-height: 25px;
+    grid-template-columns: 10fr 1fr;
+    grid-template-areas: "Heading menuIcon";
+    text-align: center
+}
+
+Header .menuIcon {
+    grid-area: menuIcon;
+    line-height: 70px;
+    cursor: pointer;
+    display: none;
+}
+
+Header .page-title {
+    grid-area: Heading
+}
+
+List {
+    grid-area: List
+}
+
+Map {
+    grid-area: map
+}

@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
-import '../../App.css'
+import '../App.css'
 
 class Menu extends Component {
-
-    toggleMenu = () => {
-        const menu = document.querySelector('aside')
-        menu.classList.toggle("toggle")
-    }
-
     render() {
-
         return (
-            <header>
-                <h1 className="page-title">Neighborhood Map</h1>
-                <span className="menuIcon" onClick={this.toggleMenu}>&#9776;</span>
-            </header>
+            <aside>
+                <div className="head">
+                    <h3 className="locations">Nearest locations</h3>
+                </div>
+                <div className="search">
+                    <label htmlFor="search">Find specific place</label>
+                    <input id="search" type="search" placeholder="search" />
+                </div>
+                <div className="search-result">
+                    <ul>
+                        <li> place 1 </li>
+                        <li> place 2 </li>
+                        <li> place 3 </li>
+                        <li> place 4 </li>
+                    </ul>
+                </div>
+            </aside>
         )
     }
 }
+
+export default Menu

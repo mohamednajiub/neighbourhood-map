@@ -5,7 +5,7 @@ class Header extends Component {
 
     toggleMenu = () => {
         const menu = document.querySelector('aside')
-        menu.classList.toggle("toggle")
+        menu.classList.toggle("toggle-aside")
     }
 
     render() {

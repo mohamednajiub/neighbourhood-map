@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react';
+import React, { Component } from 'react';
 import '../App.css';
 
 class Map extends Component {
@@ -11,7 +9,14 @@ class Map extends Component {
     this.map = new window.google.maps.Map(this.refs.map, {
       center: { lat: this.props.lat, lng: this.props.lng},
       zoom: this.props.zoom
-    })
+    });
+    this.marker = new window.google.maps.Marker({
+      map: this.map,
+      position: {
+        lat: this.props.lat,
+        lng: this.props.lng
+      }
+    });
   }
   render() {
     return (

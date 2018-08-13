@@ -4,17 +4,32 @@ import Header from './components/Header';
 import Menu from './components/Menu';
 import Map from './components/Map';
 
-
-
-
 class App extends Component {
-  
+  state = { userLocation: { lat: 0, lng: 0 }, loading: true };
+  componentDidMount(props) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        this.setState({
+          userLocation: { lat: latitude, lng: longitude },
+          loading: false
+        });
+      },
+      () => {
+        this.setState({ loading: false });
+      }
+    );
+  }
   render() {
-    return ( 
+    const { loading, userLocation } = this.state;
+    if (loading) {
+      return null;
+    }
+    return (
       <div className = "container" >
         <Header/>
         <Menu />
-        <Map lat={30.12489} lng={31.29406} zoom={15}/>
+        <Map lat={userLocation.lat} lng={userLocation.lng} zoom={15}/>
       </div>
     );
   }

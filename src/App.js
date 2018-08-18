@@ -3,9 +3,17 @@ import './App.css';
 import Header from './components/Header';
 import Menu from './components/Menu';
 import Map from './components/Map';
+import axios from 'axios'
 
 class App extends Component {
-  state = { userLocation: { lat: 0, lng: 0 }, loading: true };
+  state = {
+    userLocation: {
+      lat: 0,
+      lng: 0
+    },
+    places: [],
+    loading: true
+  };
   componentDidMount(props) {
     this.getUserLocation();
   }
@@ -30,19 +38,17 @@ class App extends Component {
     const params = {
       client_id: 'EICI1TY1WZY3KG2BGQCIMBETKC1TBOHYD1XP5RKIDSSEQZQF',
       client_secret: 'PLBCQROLIXW3WWSOS1UK2XHCBCWQBRNBF0MB43CMUUQ4NBOT',
-      ll: this.state.userLocation,
-      query: query,
+      query: 'food',
+      near: 'egypt',
       v: '20182570'
     }
 
-    fetch(`${API}ll=${params.ll}&Id=4bf58dd8d48988d181941735,4bf58dd8d48988d13a941735&client_id=${params.client_id}&client_secret=${params.client_secret}&v=${params.v}`)
-    .then(res => {
-      if(!res.ok){
-        throw Error(res.statusText)
-      }
-      return res.json()
+    axios.get(API + new URLSearchParams(params))
+    .then(response => {
+      this.setState({
+        places: response.data.response.groups[0].items
+      })
     })
-    .then(response => console.log(response.response.groups[0]))
     .catch(err => console.log('Foursquare API error: ', err))
   }
   render() {

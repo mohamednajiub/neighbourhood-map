@@ -3,6 +3,7 @@ import '../App.css'
 
 class Menu extends Component {
     render() {
+        console.log(this.props.places)
         return (
             <aside>
                 <div className="head">
@@ -12,14 +13,23 @@ class Menu extends Component {
                     <label htmlFor="search">Find specific place</label>
                     <input id="search" type="search" placeholder="search" />
                 </div>
-                <div className="search-result">
-                    <ul>
-                        <li> place 1 </li>
-                        <li> place 2 </li>
-                        <li> place 3 </li>
-                        <li> place 4 </li>
+                {this.props.places.length !== 0 && (
+                    <ul className="search-result">
+                        {this.props.places.map((place, index) => (
+                            <li 
+                                key={index}
+                                tabindex={index}
+                            >
+                                {place.venue.name}
+                            </li>
+                        ))}
                     </ul>
-                </div>
+                )}
+                {this.props.places === 0 && (
+                    <ul className="search-result">
+                        <li className="item">No Places Found..</li>
+                    </ul>
+                )}
             </aside>
         )
     }

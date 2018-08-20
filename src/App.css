@@ -64,7 +64,9 @@ aside {
     }
 }
 aside .head{
-    grid-area: head
+    grid-area: head;
+    line-height: 60px;
+    text-align: center
 }
 
 aside .search {
@@ -84,11 +86,12 @@ aside .search-result{
     grid-area: searchResult;
     min-height: 920px
 }
-aside .search-result ul{
+aside .search-result{
     list-style: none
 }
-aside .search-result ul li{
-    padding-bottom: 10px
+aside .search-result li{
+    padding: 10px;
+    cursor: pointer
 }
 
 #map {
@@ -96,7 +99,6 @@ aside .search-result ul li{
     height: 100%;
     min-height: 550px
 }
-
 
 .toggle-aside{
     display: block;

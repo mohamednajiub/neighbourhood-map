@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import '../App.css'
 
 class Menu extends Component {
+    openMarkerDetails = (placeName) => {
+        this.props.markers.map(marker=>{
+            if (placeName === marker.title){
+                window.google.maps.event.trigger(marker, 'click')
+            }
+        })
+    }
     render() {
-        console.log(this.props.places)
         return (
             <aside>
                 <div className="head">
@@ -11,14 +17,15 @@ class Menu extends Component {
                 </div>
                 <div className="search">
                     <label htmlFor="search">Find specific place</label>
-                    <input id="search" type="search" placeholder="search" />
+                    <input id="search" type="search" placeholder="Search" />
                 </div>
                 {this.props.places.length !== 0 && (
                     <ul className="search-result">
                         {this.props.places.map((place, index) => (
                             <li 
-                                key={index}
-                                tabindex={index}
+                                key = {index}
+                                tabIndex = {index}
+                                onClick = {()=>{this.openMarkerDetails(place.venue.name)}}
                             >
                                 {place.venue.name}
                             </li>

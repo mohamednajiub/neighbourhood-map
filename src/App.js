@@ -8,6 +8,7 @@ import axios from 'axios'
 class App extends Component {
   state = {
     places: [],
+    markers: []
   };
   componentDidMount() {
     this.getPlaces();
@@ -56,6 +57,7 @@ class App extends Component {
         map: map,
         title: place.venue.name
       })
+      this.state.markers.push(marker);
       // set info window content
       let content = `
         <table>
@@ -83,7 +85,7 @@ class App extends Component {
     return (
       <div className = "container" >
         <Header/>
-        <Menu places={this.state.places}/>
+        <Menu places={this.state.places} markers={this.state.markers}/>
         <Map />
       </div>
     );

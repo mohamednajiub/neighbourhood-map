@@ -8,11 +8,12 @@ import axios from 'axios'
 class App extends Component {
   state = {
     places: [],
+    displayedPlaces: [],
     markers: []
   };
   componentDidMount() {
     this.getPlaces();
-  }
+  } 
   // insert google API script in our page
   loadMap = () =>{
     loadScript('https://maps.googleapis.com/maps/api/js?key=AIzaSyAgZzdo8v_0gAMHcFd_Act1gYhs9Klvc8o&callback=initMap');
@@ -33,8 +34,9 @@ class App extends Component {
     axios.get(API + new URLSearchParams(params))
     .then(response => {
       this.setState({
+        displayedPlaces: response.data.response.groups[0].items,
         places: response.data.response.groups[0].items
-      },this.loadMap())
+      },this.loadMap)
     })
     .catch(err => console.log('Foursquare API error: ', err))
   }
@@ -47,7 +49,7 @@ class App extends Component {
     // create info window
     let infowindow = new window.google.maps.InfoWindow();
     // create marker for each place
-    this.state.places.map(place=>{
+    this.state.places.map((place) => {
       // create and show the marker
       let marker = new window.google.maps.Marker({
         position: {
@@ -70,22 +72,25 @@ class App extends Component {
               <td>${place.venue.location.formattedAddress[0]} ${place.venue.location.formattedAddress[1]} ${place.venue.location.formattedAddress[2]}</td>
             </tr>
           </tbody>
-        </table>`;
-        // add content to info window by click
-        marker.addListener('click', function() {
-          // Update 'InfoWindow' content
-          infowindow.setContent(content)
-          // Open An 'InfoWindow'
-          infowindow.open(map, marker)
+        </table>
+      `;
+      // add content to info window by click
+      marker.addListener('click', function() {
+        // Update 'InfoWindow' content
+        infowindow.setContent(content)
+        // Open An 'InfoWindow'
+        infowindow.open(map, marker)
       })
     })
   }
-  
   render() {
     return (
       <div className = "container" >
         <Header/>
-        <Menu places={this.state.places} markers={this.state.markers}/>
+        <Menu 
+          places={this.state.displayedPlaces}
+          markers={this.state.markers}
+        />
         <Map />
       </div>
     );
